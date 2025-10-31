@@ -1,0 +1,5 @@
+{
+  "name": "AI 3D Model Generator from Image",
+  "description": "Upload an image of an object and have Gemini generate the three.js code to render it in 3D.",
+  "requestFramePermissions": []
+}

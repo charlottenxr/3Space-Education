@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3Space Education</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Roboto+Mono:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^0.7.0",
+    "three": "https://esm.sh/three@^0.164.0",
+    "three/addons/": "https://esm.sh/three@^0.164.0/examples/jsm/",
+    "three/": "https://aistudiocdn.com/three@^0.180.0/"
+  }
+}
+</script>
+</head>
+<body>
+    <main id="app">
+        <div id="mode-selection-container">
+            <h1>3Space Education</h1>
+            <div class="mode-selection-group">
+                <p>An AI 3D Model Generator To Help With Your Homework</p>
+                <div class="mode-buttons">
+                    <button id="geometry-mode-btn">
+                        <span class="material-icons">square_foot</span>
+                        Geometry
+                    </button>
+                    <button id="chemistry-mode-btn">
+                        <span class="material-icons">science</span>
+                        Chemistry
+                    </button>
+                    <button id="load-session-btn" disabled>
+                        <span class="material-icons">inventory</span>
+                        Load Session
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="app-container" class="hidden">
+            <header>
+                <h1 id="app-title">Geometry Model Generator</h1>
+                <div class="header-buttons">
+                  <button id="save-session-btn" class="hidden">Save Session</button>
+                  <button id="reset-btn">Change Mode</button>
+                </div>
+            </header>
+            <div class="input-container">
+                <input type="file" id="image-input" accept="image/png, image/jpeg" class="hidden">
+                <label for="image-input" id="image-upload-label" class="upload-btn">Upload Your Homework Here!</label>
+                <button id="generate-btn" disabled>Generate</button>
+            </div>
+            <div id="image-preview-container" class="hidden">
+              <img id="image-preview" src="#" alt="Selected image preview">
+            </div>
+            <div id="loading-container" class="hidden">
+                <div id="loading-spinner" role="status" aria-live="polite"></div>
+                <p id="loading-text">Generating 3D model, this may take a moment...</p>
+                <div id="progress-bar-container">
+                    <div id="progress-bar"></div>
+                </div>
+            </div>
+            <div id="results-container" class="hidden">
+                <div class="results-top-panel">
+                    <div class="main-content">
+                        <div id="canvas-wrapper">
+                            <div id="canvas-container" aria-label="3D model viewer"></div>
+                        </div>
+                        <div class="code-wrapper">
+                            <h2>Generated Data (JSON):</h2>
+                            <pre><code id="code-container"></code></pre>
+                        </div>
+                    </div>
+                    <div class="sidebar">
+                        <div id="details-container" class="hidden">
+                            <h2>Model Details</h2>
+                            <div id="details-content"></div>
+                        </div>
+                        <div id="selection-details-container" class="hidden">
+                            <h2>Selection Details</h2>
+                            <div id="selection-details-content"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="qa-container" class="hidden">
+                    <h2>Ask a question! Click on a part of the model to ask a specific question!</h2>
+                    <div class="input-container qa-input-area">
+                        <textarea id="qa-input" placeholder="e.g., What is the volume?"></textarea>
+                        <button id="qa-btn" disabled>Ask</button>
+                    </div>
+                    <div id="qa-history-container">
+                        <!-- Q&A pairs will be added here -->
+                    </div>
+                </div>
+            </div>
+            <p id="error-message" class="hidden" aria-live="assertive"></p>
+        </div>
+    </main>
+
+    <div id="load-modal" class="modal hidden">
+        <div class="modal-content">
+            <span id="close-modal-btn" class="close-btn">&times;</span>
+            <h2>Load a Saved Session</h2>
+            <div id="saved-sessions-list">
+                <!-- Session items will be dynamically inserted here -->
+            </div>
+            <p id="no-sessions-message" class="hidden">No saved sessions found.</p>
+        </div>
+    </div>
+    
+    <div id="notification"></div>
+
+    <script type="module" src="index.tsx"></script>
+</body>
+</html>
